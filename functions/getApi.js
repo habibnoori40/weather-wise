@@ -3,7 +3,7 @@ exports.handler = function (event, context, callback) {
     callback(null, {
         statusCode: 200,
         headers: {
-            "Access-Control-Allow-Origin": "https://habibnoori40.github.io/weather-wise/, https://gregarious-froyo-8a5085.netlify.app/",
+            "Access-Control-Allow-Origin": "https://habibnoori40.github.io/weather-wise/",
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ key: apiKey })
