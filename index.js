@@ -20,11 +20,20 @@ const searchInput = document.getElementById("search-input");
 const list = document.getElementById("dropDownList");
 const aboutUs = document.getElementById("about-us");
 
-fetch("https://gregarious-froyo-8a5085.netlify.app/.netlify/functions/getApi").then((response)=> response.json()).then((data)=>{
-  console.log(data)
-})
+appfn()
 
-function search(apiKey) {
+function appfn(){
+  fetch("https://gregarious-froyo-8a5085.netlify.app/.netlify/functions/getApi")
+  .then((response)=> response.json())
+  .then((data)=>{
+    search(data.key)
+    weatherWise(data.key);
+    about();
+    themeChange();
+  });
+}
+
+function search(key) {
   let timer;
   searchInput.addEventListener("input", (event) => {
     let searchQuery = event.target.value;
@@ -32,7 +41,7 @@ function search(apiKey) {
     list.innerHTML = "loading...";
     list.classList.add("p-4", "text-slate-900")
     clearTimeout(timer);
-    const resolvedPromise = fetch(`https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${searchQuery}`).then((response) => response.json());
+    const resolvedPromise = fetch(`https://api.weatherapi.com/v1/search.json?key=${key}&q=${searchQuery}`).then((response) => response.json());
     resolvedPromise.then((locationData) => {
       timer = setTimeout(() => {
         handleLocationData(locationData)
@@ -41,13 +50,13 @@ function search(apiKey) {
   })
 }
 
-function weatherWise(apiKey) {
+function weatherWise(key) {
   const getCityName = localStorage.getItem("city") || "mecca";
   const days = 3;
-  const resolvedPromise = fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${getCityName}&days=${days}`).then((response) => response.json());
+  const resolvedPromise = fetch(`https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${getCityName}&days=${days}`).then((response) => response.json());
   resolvedPromise.then((weatherData) => {
-    updateURL(`?location=${getCityName}`)
     handleWeatherData(weatherData);
+    updateURL(`?location=${getCityName}`)
   })
 }
 
