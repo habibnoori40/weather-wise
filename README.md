@@ -1,3 +1,3 @@
 # weather-wise
-Get accurate and up-to-date weather information with Weather Wise - a user-friendly web-based app providing real-time weather data for any location around the world. Customize the display of weather information in your preferred units of measurement, Celsius or Fahrenheit. Stay ahead of the weather with Weather Wise - the reliable and highly useful
+Weather Wise is a user-friendly web application that provides accurate and up-to-date weather information, including current conditions and 2-day forecasts for any location worldwide. It uses real-time weather data and allows users to customize their preferred units of measurement. Weather Wise also offers a range of other useful weather-related information and has a beautiful and appealing interface.
 # Live : https://habibnoori40.github.io/weather-wise
