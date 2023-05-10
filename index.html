@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get accurate and up-to-date weather information with Weather Wise - a user-friendly web-based app providing real-time weather data for any location around the world. Customize the display of weather information in your preferred units of measurement, Celsius or Fahrenheit. Stay ahead of the weather with Weather Wise - the reliable and highly useful weather app for travel, outdoor activities, or everyday planning.">
+  <meta name="author" content="Weather Wise">
+  <meta name="keywords" content="Weather Wise, weather information, real-time data, weather forecasts, user-friendly, accurate, reliable, Celsius, Fahrenheit, travel, outdoor activities, everyday planning">
+  <title>Weather Wise - Accurate and Up-to-Date Weather Information</title>
+  <link rel="shortcut icon" href="./favicon.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="./tailwind.config.js" defer></script>
+  <script src="./index.js" type="module"></script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+        .active-degree{
+          @apply font-bold rounded-full bg-sky-300 text-white;
+        }
+        .tooltip{
+          @apply relative before:content-[attr(data-tooltip)] before:dark before:absolute before:opacity-0 before:w-52 before:text-cyan-200 before:p-2 before:rounded before:top-full before:left-1/2 before:-translate-x-1/2 before:pointer-events-none before:transition-all before:duration-300 before:z-10;
+        }
+        .tooltip-active{
+          @apply hover:before:-top-full hover:before:opacity-100 hover:before:pointer-events-auto;
+        }
+        .light{
+          @apply text-slate-700 bg-zinc-100;
+        }
+        .condition-light{
+          @apply text-slate-500;
+        }     
+        .inner-light-left{
+          @apply bg-white;
+        }  
+         .dark{
+          @apply text-cyan-300 bg-slate-600;
+        }
+        .condition-dark{
+          @apply text-slate-400;
+        }
+        .inner-dark-left{
+          @apply bg-slate-800;
+        }      
+      }
+</style>
+</head>
+<body class="md:overflow-hidden light transition-all duration-200"></body>
+
+</html>
