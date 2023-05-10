@@ -20,6 +20,10 @@ const searchInput = document.getElementById("search-input");
 const list = document.getElementById("dropDownList");
 const aboutUs = document.getElementById("about-us");
 
+fetch("https://gregarious-froyo-8a5085.netlify.app/.netlify/functions/getApi").then((response)=> response.json()).then((data)=>{
+  console.log(data)
+})
+
 function search(apiKey) {
   let timer;
   searchInput.addEventListener("input", (event) => {
