@@ -13,38 +13,36 @@ const windspeed = document.getElementById("windspeed");
 const humidity = document.getElementById("humidity");
 const rain = document.getElementById("rain");
 const feelsLike = document.getElementById("feels-like");
-
+//
 const main = document.getElementById("main");
 const popOut = document.getElementById("forecast-popout");
 const searchInput = document.getElementById("search-input");
 const list = document.getElementById("dropDownList");
 const aboutUs = document.getElementById("about-us");
+let timer;
 
-appfn()
-
-function appfn(){
+function appfn() {
   fetch("https://gregarious-froyo-8a5085.netlify.app/.netlify/functions/getApi")
-  .then((response)=> response.json())
-  .then((data)=>{
-    search(data.key)
-    weatherWise(data.key);
-    about();
-    themeChange();
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      search(data.key)
+      weatherWise(data.key);
+      about();
+      themeChange();
+    });
 }
 
 function search(key) {
-  let timer;
   searchInput.addEventListener("input", (event) => {
     let searchQuery = event.target.value;
     if (searchQuery === "") return;
     list.innerHTML = "loading...";
     list.classList.add("p-4", "text-slate-900")
     clearTimeout(timer);
-    const resolvedPromise = fetch(`https://api.weatherapi.com/v1/search.json?key=${key}&q=${searchQuery}`).then((response) => response.json());
-    resolvedPromise.then((locationData) => {
-      timer = setTimeout(() => {
-        handleLocationData(locationData)
+    timer = setTimeout(() => {
+      const resolvedPromise = fetch(`https://api.weatherapi.com/v1/search.json?key=${key}&q=${searchQuery}`).then((response) => response.json());
+      resolvedPromise.then((locationData) => {
+        handleLocationData(locationData, key)
       })
     }, 500)
   })
@@ -55,12 +53,12 @@ function weatherWise(key) {
   const days = 3;
   const resolvedPromise = fetch(`https://api.weatherapi.com/v1/forecast.json?key=${key}&q=${getCityName}&days=${days}`).then((response) => response.json());
   resolvedPromise.then((weatherData) => {
-    handleWeatherData(weatherData);
     updateURL(`?location=${getCityName}`)
+    handleWeatherData(weatherData);
   })
 }
 
-function handleLocationData(loctaionData) {
+function handleLocationData(loctaionData, key) {
   list.innerHTML = "";
   list.classList.remove("p-4")
   const fragment = document.createDocumentFragment();
@@ -79,7 +77,7 @@ function handleLocationData(loctaionData) {
     city.addEventListener("click", () => {
       const cityName = city.textContent.trim();
       localStorage.setItem("city", cityName)
-      weatherWise()
+      weatherWise(key)
       list.innerHTML = "";
       searchInput.value = "";
       weather_sc.style.transform = "scale(0) translateY(-150%)";
@@ -299,3 +297,5 @@ function updateURL(endPointUrl) {
   const url = `${location.origin}${location.pathname}${endPointUrl}`;
   history.replaceState(null, "", url);
 }
+
+appfn() 
